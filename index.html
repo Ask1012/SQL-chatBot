@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Feedback Form</title>
+    <style>
+        #thankYouMessage {
+            display: none;
+            color: green;
+            margin-top: 10px;
+        }
+h1{ border:2px solid black; background-color:cyan;
+}
+    </style>
+</head>
+<body>
+    <h1>Feedback Form</h1>
+     <h2>Rate Us</h2>
+    <form id="feedbackForm" action="submit_feedback.php" method="post">
+        <label>
+            <input type="radio" name="rating" value="1"> ⭐
+        </label><br>
+        <label>
+            <input type="radio" name="rating" value="2"> ⭐⭐
+        </label><br>
+        <label>
+            <input type="radio" name="rating" value="3"> ⭐⭐⭐
+        </label><br>
+        <label>
+            <input type="radio" name="rating" value="4"> ⭐⭐⭐⭐
+        </label><br>
+        <label>
+            <input type="radio" name="rating" value="5"> ⭐⭐⭐⭐⭐
+        </label><br><br>
+    
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+
+        
+        <textarea id="feedback" name="feedback" rows="4" cols="50" placeholder="your feedback..." required></textarea><br><br>
+
+        <button type="submit">Submit</button>
+      <button onclick="goback();"> back </button>
+ </form>
+    <p id="thankYouMessage">Thank you for your feedback!</p>
+
+    <script> 
+         function goback(){
+            window.location.href = 'index.html';
+          }
+        document.getElementById('feedbackForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form from submitting normally
+
+            // Get form values (optional, for further processing)
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const feedback = document.getElementById('feedback').value;
+
+            // Log the feedback data (optional, for demonstration)
+            console.log('Name:', name);
+            console.log('Email:', email);
+            console.log('Feedback:', feedback);
+
+            // Show the thank you message
+             alert(name+' Your feedback successfully submitted ');
+            
+            // Optionally, you can clear the form
+            this.reset();
+        });
+    </script>
+</body>
+</html>
