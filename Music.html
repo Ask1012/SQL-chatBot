@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Music Player</title>
+<style>
+h2 {
+    margin: 80px ;
+}
+html, body {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: flex;
+}
+ /* Prevents scrolling */
+section {
+border:2px solid lightyellow;    
+    background: lightblue;
+    padding: 10px;    
+    border-radius: 15px;
+    box-shadow: 10px 15px 9px 5px grey;
+    width: 20px;
+    max-width: 260px;  
+    height:25px;/* Ensure sections don't exceed 300px */
+    position: relative;
+top:20px;
+left:20px;
+}
+
+audio {
+color:black;
+    position: absolute;
+    top: 160px;
+left:20px;
+    width: 90%; /* Make the audio player responsive */
+}
+@media (max-width: 600px) {
+    section {
+        width: 90%; /* Adjust width for mobile devices */
+         /* Center sections on smaller screens */
+    }
+}
+
+.singertag{
+ display:block;
+font-size:10px;
+}
+
+.singertag{  position: absolute;
+ top:200px;
+font-size:15px;
+}
+img{
+border:1px solid lightblue;
+border-radius:20px;
+display:blcok;
+ width:50px;
+height:50px;
+}
+.singertag {
+            font-weight: bold;
+            margin-left: 10px;
+              
+        }
+        .music-item {
+              
+            top:-10px;
+            cursor: pointer;
+            margin: 10px 0;
+       
+        }
+        .music-item img {
+            width: 30px;
+            height: 30px; position:relative;
+            top:20px;
+            vertical-align: middle;
+  
+        }
+        .music-item h4 {
+            display: inline;
+            margin-left: 10px;
+        }
+        #playerSection {
+            margin-bottom: 20px;
+            display: none;          
+            background:white;
+            padding: 10px ;
+            margin: 10px 5px 2px 20px;
+            border-radius: 10px;
+            box-shadow: 5px 8px 7px 4px grey;
+            height:260px;
+            width:290px;
+            border:2px solid cyan;
+            
+        }
+#audioPlayer{ background-color:purple;
+width:390;
+position: relative;
+left:15px;
+top:110px;
+border:2px solid purple;
+border-radius:10px;
+}
+.cimg{ width:80px;
+height:80px;
+display:none;
+position: absolute;
+left:130px;
+top:220px;
+box-shadow: 2px -10px 7px 4px grey;
+
+}
+.head{ 
+width:360px;
+height:120px;
+position:relative;
+top:0;
+color:white;
+border:2px solid black;
+}
+.head img{ width:360px;height:120px;
+top:40px;
+border-radius:0;
+border
+}
+h1{ position:absolute;
+top:5px;
+left:5px;
+font-size:30px;
+}
+h4{ font-size:15px;
+font-style:;
+}
+button{
+top:180px;
+right:10px;
+position:fixed;
+font-size:10px;
+height:40px;
+width:90px;
+background-color: black;
+border-radius:20px;
+color:white;
+border-color:cyan;
+}
+</style>
+</head>
+<body>
+<div class="head">
+<img id="pimg" src="bolly.jpg" alt="song wave" >
+
+</div><br>
+
+  <div id="playerSection">
+        <h3></h3>
+        <audio controls id="audioPlayer"></audio>
+    </div>
+<img id="cimg2" class="cimg" src="play.jpeg" alt="song wave" >
+<div id="musicSection" style="display:block">
+<img id="cimg1" class="cimg" src="circle.gif" alt="song wave" >
+  </div>
+<button onclick="changePage()">Go back </button>
+
+
+<script>
+   function changePage() {
+            window.location.href = "index.html"; // Replace "index.html" with the URL of the page you want to navigate to
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var musicFiles = [
+                { singer: "jjsjsjsjs", song: "Choo Lo.mp3", category: "bollywood" },
+                { singer: "Sijsjsjsjs", song: "song2.mp3", category: "bollywood" },
+                { singer: "Sinhshshger 3", song: "song3.mp3", category: "party" },
+                { singer: "Singhshsher 1", song: "song1.mp3", category: "party" },
+                { singer: "Choo Lo2", song: "Choo Lo.mp3", category: "old" },
+                { singer: "Singer 3", song: "song3.mp3", category: "old" }
+            ];
+
+            var categoryImages = {
+                bollywood: "Bolly.jpg",
+                party: "Partty.jpg",
+                old: "old.jpg",
+                bgm: "Head.png",
+                default: "default.jpg"
+            };
+
+            var categoryColors = {
+                bollywood: "lightblue",
+                party: "pink",
+                old: "lightyellow",
+                bgm: "lightblue",
+                default: "white"
+            };
+
+            var audioPlayer = document.getElementById("audioPlayer");
+            var cimg2 = document.getElementById("cimg2");
+            var cimg1 = document.getElementById("cimg1");
+            var pimg = document.getElementById("pimg");
+
+            audioPlayer.addEventListener("play", function () {
+                cimg1.style.display = "block";
+                cimg2.style.display = "none";
+            });
+
+            audioPlayer.addEventListener("pause", function () {
+                cimg2.style.display = "block";
+                cimg1.style.display = "none";
+            });
+
+            cimg2.addEventListener("click", function () {
+                audioPlayer.play();
+            });
+
+            var playerSection = document.getElementById("playerSection");
+            var musicSection = document.getElementById("musicSection");
+
+            var urlParams = new URLSearchParams(window.location.search);
+            var category = urlParams.get('category');
+
+            if (category in categoryImages && category in categoryColors) {
+                pimg.src = categoryImages[category];               
+            } else {
+                pimg.src = categoryImages['default'];                
+            }
+
+            var filteredFiles = musicFiles.filter(function(file) {
+                return file.category === category;
+            });
+
+            filteredFiles.forEach(function(file) {
+                musicSection.appendChild(document.createElement("br"));
+                var section = document.createElement("section");
+                section.className = "music-item";
+                section.style.backgroundColor = categoryColors[category]; // Set the background color for each section
+
+                var imgg = document.createElement("img");
+                imgg.src = "play.jpeg"; // Ensure the file path and extension are correct
+                imgg.alt = "Play";
+
+                var h4 = document.createElement("h4");
+                h4.textContent = file.singer;
+
+                section.appendChild(imgg);
+                section.appendChild(h4);
+
+                section.addEventListener("click", function() {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    playSong(file.singer, file.song);
+                });
+
+                musicSection.appendChild(section);
+            });
+
+            function playSong(singer, song) {
+                cimg1.style.display = "block";
+                playerSection.style.display = "block";
+                playerSection.querySelector("h3").textContent = "▪️" + singer;
+                audioPlayer.src = song;
+                audioPlayer.play();
+
+                // Move the player section to the top of the music section
+                if (musicSection.firstChild !== playerSection) {
+                    musicSection.insertBefore(playerSection, musicSection.firstChild);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
