@@ -348,6 +348,14 @@ a href="music.html?category=BGM">BGM</a>
 </footer>
 
 <script>
+    var musicFiles = [
+    { singer: "jjsjsjsjs", song: "Choo Lo.mp3", category: "bollywood" },
+    { singer: "Sijsjsjsjs", song: "song2.mp3", category: "bollywood" },
+    { singer: "Sinhshshger 3", song: "song3.mp3", category: "party" },
+    { singer: "Singhshsher 1", song: "song1.mp3", category: "party" },
+    { singer: "Choo Lo2", song: "Choo Lo.mp3", category: "old" },
+    { singer: "Singer 3", song: "song3.mp3", category: "old" }
+];
 let currentIndex = 0;
 
 const slides = document.querySelectorAll('.slide');
@@ -436,57 +444,52 @@ window.location.href = 'Audio.html';
 function feed(){
 window.location.href ='Check.html';
 }
-var musicFiles = [
-            { singer: "jjsjsjsjs", song: "Choo Lo.mp3", category: "bollywood" },
-            { singer: "Sijsjsjsjs", song: "song2.mp3", category: "bollywood" },
-            { singer: "Sinhshshger 3", song: "song3.mp3", category: "party" },
-            { singer: "Singhshsher 1", song: "song1.mp3", category: "party" },
-            { singer: "Choo Lo2", song: "Choo Lo.mp3", category: "old" },
-            { singer: "Singer 3", song: "song3.mp3", category: "old" }
-        ];
+// Define musicFiles globally
 
-        document.getElementById('musicinput').addEventListener('input', eventHandle);
-        document.getElementById('musicinput').addEventListener('keypress', eventHandle);
 
-        function eventHandle(event) {
-            var button = document.getElementById('b3');
-            var input = document.getElementById('musicinput');
-            var searchResults = document.getElementById('searchResults');
+document.getElementById('musicinput').addEventListener('input', eventHandle);
+document.getElementById('musicinput').addEventListener('keypress', eventHandle);
 
-            if (input.value === '' && event.type === 'keypress' && event.key === 'Enter') {
-                button.style.display = "none";
-                searchResults.style.display = "none";
-            } else if (input.value === '') {
-                button.style.display = "none";
-                searchResults.style.display = "none";
-            } else {
-                button.style.display = "block";
-                searchResults.style.display = "block";
-                performSearch(input.value);
-            }
+function eventHandle(event) {
+    var button = document.getElementById('b3');
+    var input = document.getElementById('musicinput');
+    var searchResults = document.getElementById('searchResults');
 
-            if (event.type === 'keypress' && event.key === 'Enter') {
-                performSearch(input.value);
-            }
-        }
+    if (input.value === '' && event.type === 'keypress' && event.key === 'Enter') {
+        button.style.display = "none";
+        searchResults.style.display = "none";
+    } else if (input.value === '') {
+        button.style.display = "none";
+        searchResults.style.display = "none";
+    } else {
+        button.style.display = "block";
+        searchResults.style.display = "block";
+        performSearch(input.value);
+    }
 
-        function performSearch(searchTerm) {
-            var searchResults = document.getElementById('searchResults');
-            searchResults.innerHTML = '';
-            var lowerSearchTerm = searchTerm.toLowerCase().trim();
-            musicFiles.forEach(function (file) {
-                var searchText = `${file.singer} ${file.song} ${file.category}`.toLowerCase();
-                if (searchText.includes(lowerSearchTerm)) {
-                    var div = document.createElement('div');
-                    div.classList.add('search-item');
-                    div.textContent = `${file.singer} - ${file.song} (${file.category})`;
-                    div.addEventListener('click', function () {
-                        localStorage.setItem('selectedSong', JSON.stringify(file));
-                        window.location.href = 'music.html';
-                    });
-                    searchResults.appendChild(div);
-                }
+    if (event.type === 'keypress' && event.key === 'Enter') {
+        performSearch(input.value);
+    }
+}
+
+function performSearch(searchTerm) {
+    var searchResults = document.getElementById('searchResults');
+    searchResults.innerHTML = '';
+    var lowerSearchTerm = searchTerm.toLowerCase().trim();
+    musicFiles.forEach(function (file) {
+        var searchText = `${file.singer} ${file.song} ${file.category}`.toLowerCase();
+        if (searchText.includes(lowerSearchTerm)) {
+            var div = document.createElement('div');
+            div.classList.add('search-item');
+            div.textContent = `${file.singer} - ${file.song} (${file.category})`;
+            div.addEventListener('click', function () {
+                localStorage.setItem('selectedSong', JSON.stringify(file));
+                window.location.href = 'music.html';
             });
-    </script>
+            searchResults.appendChild(div);
+        }
+    });
+}
+</script>
 </body>
     </html>
