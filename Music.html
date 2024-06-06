@@ -220,7 +220,7 @@ border-color:cyan;
 
             var urlParams = new URLSearchParams(window.location.search);
             var category = urlParams.get('category');
-          if (category && category in categoryImages) {
+          if ( category in categoryImages) {
         pimg.src = categoryImages[category];
           }
             var selectedSong = JSON.parse(localStorage.getItem('selectedSong'));
