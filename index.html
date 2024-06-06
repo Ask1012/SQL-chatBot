@@ -256,6 +256,8 @@ color:blue;
 }
 #searchResults {
             position: absolute;
+  display:none;
+background-color:red;
             top: 175px;
             left: 25px;
             width: 300px;
@@ -304,7 +306,7 @@ color:blue;
    <button id="b3" class="b33" >Go</button>
         <div id="results">  
   </div>
-
+<div id="searchResults"> </div>
   
 <input type="text" id="musicinput" placeholder=" 🎧 Search music ...">    
 <div class="dropdown hidden-element" id="dropdownMenu" >
@@ -471,7 +473,7 @@ var button = document.getElementById('b3');
                 searchResults.style.display = "block";
                 
         
-            searchResults.innerHTML = '';
+            searchResults.innerHTML ='';
             var lowerSearchTerm = input.value.toLowerCase().trim();
             var musicFiles = [
                 { singer: "jjsjsjsjs", song: "Choo Lo.mp3", category: "bollywood" },
@@ -485,21 +487,25 @@ var button = document.getElementById('b3');
             musicFiles.forEach(function (file) {
                 var searchText = `${file.singer} ${file.song} ${file.category}`.toLowerCase();
                 if (searchText.includes(lowerSearchTerm)) {
-                    var div = document.createElement('div');
+                    var dis = document.getElementById('searchResults');
+                   var  div=document.createElement('div');
                     div.classList.add('search-item');
                     div.textContent = `${file.singer} - ${file.song} (${file.category})`;
-                    
-                    searchResults.appendChild(div);
+                    div.addEventListener('click', function () {
+                        localStorage.setItem('selectedSong', JSON.stringify(file));
+                        window.location.href = 'Music.html';
+                    });
+                    dis.appendChild(div);
                 }
             });
 
             if (searchResults.innerHTML === '') {
                 searchResults.style.display = 'none';
             } else {
-                searchResults.style.display = 'block';
+                searchResults.style.display = 'block'; 
             }
         }
    }
 </script>
 </body>
-                                               </html>
+     </html>
