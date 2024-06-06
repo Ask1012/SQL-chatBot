@@ -197,8 +197,8 @@ border-color:cyan;
             };
 
             var audioPlayer = document.getElementById("audioPlayer");
-            var cimg2 = document.getElementById("cimg2");
             var cimg1 = document.getElementById("cimg1");
+            var cimg2 = document.getElementById("cimg2");
             var pimg = document.getElementById("pimg");
 
             audioPlayer.addEventListener("play", function () {
@@ -220,6 +220,7 @@ border-color:cyan;
 
             var urlParams = new URLSearchParams(window.location.search);
             var category = urlParams.get('category');
+            var selectedSong = JSON.parse(localStorage.getItem('selectedSong'));
 
             if (category in categoryImages && category in categoryColors) {
                 pimg.src = categoryImages[category];               
@@ -227,18 +228,21 @@ border-color:cyan;
                 pimg.src = categoryImages['default'];                
             }
 
+            if (selectedSong) {
+                playSong(selectedSong.singer, selectedSong.song);
+            }
+
             var filteredFiles = musicFiles.filter(function(file) {
                 return file.category === category;
             });
 
             filteredFiles.forEach(function(file) {
-                musicSection.appendChild(document.createElement("br"));
                 var section = document.createElement("section");
                 section.className = "music-item";
-                section.style.backgroundColor = categoryColors[category]; // Set the background color for each section
+                section.style.backgroundColor = categoryColors[category];
 
                 var imgg = document.createElement("img");
-                imgg.src = "play.jpeg"; // Ensure the file path and extension are correct
+                imgg.src = "play.jpeg";
                 imgg.alt = "Play";
 
                 var h4 = document.createElement("h4");
@@ -256,13 +260,11 @@ border-color:cyan;
             });
 
             function playSong(singer, song) {
-                cimg1.style.display = "block";
                 playerSection.style.display = "block";
                 playerSection.querySelector("h3").textContent = "▪️" + singer;
                 audioPlayer.src = song;
                 audioPlayer.play();
 
-                // Move the player section to the top of the music section
                 if (musicSection.firstChild !== playerSection) {
                     musicSection.insertBefore(playerSection, musicSection.firstChild);
                 }
