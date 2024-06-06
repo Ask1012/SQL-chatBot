@@ -493,7 +493,7 @@ var button = document.getElementById('b3');
                     div.textContent = `${file.singer} - ${file.song} (${file.category})`;
                     div.addEventListener('click', function () {
                         localStorage.setItem('selectedSong', JSON.stringify(file));
-                        window.location.href = 'Music.html';
+                        window.location.href = 'Music.html?file.category';
                     });
                     dis.appendChild(div);
                 }
