@@ -222,19 +222,11 @@ border-color:cyan;
             var category = urlParams.get('category');
             var selectedSong = JSON.parse(localStorage.getItem('selectedSong'));
 
-            if (category in categoryImages && category in categoryColors) {
-                pimg.src = categoryImages[category];               
-            } else {
-                pimg.src = categoryImages['default'];                
-            }
-
-            if (selectedSong && category in categoryImages) {
-                pimg.src = categoryImages[category];
-                playSong(selectedSong.singer, selectedSong.song);
             if (selectedSong && selectedSong.category in categoryImages) {
         pimg.src = categoryImages[selectedSong.category];
+        category = selectedSong.category;
         playSong(selectedSong.singer, selectedSong.song);
-    } else if (category in categoryImages && category in categoryColors) {
+    } else if (category in categoryImages) {
         pimg.src = categoryImages[category];
     } else {
         pimg.src = categoryImages['default'];
