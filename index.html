@@ -442,6 +442,7 @@ function toggleMenu() {
     }
         if (!event.target.closest('#searchResults') && !event.target.closest('#searchInput')) {
                 searchResults.style.display = 'none';
+                a1.style.display='block';
             }
 };
 
@@ -458,7 +459,7 @@ var button = document.getElementById('b3');
         var input = document.getElementById('musicinput');
         var tem = document.getElementById('template');
         var searchResults = document.getElementById('searchResults');
-
+         var a1= document.getElementById('a1');
         input.addEventListener('input', function (event) {
             hd(event);
         });
@@ -472,6 +473,7 @@ var button = document.getElementById('b3');
         button.addEventListener('click', hd);
 
         function hd(event) {
+            a1.style.display='block';
             if (input.value === '' && event.type === 'keydown' && event.key === 'Enter') {
                 button.style.display = "none";
                 tem.style.display = "block";
@@ -523,11 +525,13 @@ var button = document.getElementById('b3');
 
             if (searchResults.innerHTML === '') {
                 searchResults.style.display = 'none';
+              a1.style.display='block';
             } else {
                 searchResults.style.display = 'block'; 
+              a1.style.display='none';
             }
         }
    }
 </script>
 </body>
-                    </html>
+                                   </html>
