@@ -228,7 +228,8 @@ border-color:cyan;
                 pimg.src = categoryImages['default'];                
             }
 
-            if (selectedSong) {
+            if (selectedSong && category in categoryImages) {
+                pimg.src = categoryImages[category];
                 playSong(selectedSong.singer, selectedSong.song);
             }
 
