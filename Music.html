@@ -219,19 +219,19 @@ border-color:cyan;
             var musicSection = document.getElementById("musicSection");
 
             var urlParams = new URLSearchParams(window.location.search);
-            var category = urlParams.get('category');
-          if ( category in categoryImages) {
-        pimg.src = categoryImages[category];
-          }
+            var category = urlParams.get('category');          
             var selectedSong = JSON.parse(localStorage.getItem('selectedSong'));
-
-            if (selectedSong && selectedSong.category in categoryImages) {
-        pimg.src = categoryImages[selectedSong.category];
-        category = selectedSong.category;
-        playSong(selectedSong.singer, selectedSong.song);
-    }   else {
+           if ( category in categoryImages) {
+        pimg.src = categoryImages[category];
+           }
+            else {
         pimg.src = categoryImages['default'];
-    }
+            }
+            if (selectedSong) {
+        pimg.src = categoryImages[selectedSong.category];
+        
+        playSong(selectedSong.singer, selectedSong.song);
+    }   
 
             var filteredFiles = musicFiles.filter(function(file) {
                 return file.category === category;
