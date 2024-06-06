@@ -220,15 +220,16 @@ border-color:cyan;
 
             var urlParams = new URLSearchParams(window.location.search);
             var category = urlParams.get('category');
+          if (category in categoryImages) {
+        pimg.src = categoryImages[category];
+          }
             var selectedSong = JSON.parse(localStorage.getItem('selectedSong'));
 
             if (selectedSong && selectedSong.category in categoryImages) {
         pimg.src = categoryImages[selectedSong.category];
         category = selectedSong.category;
         playSong(selectedSong.singer, selectedSong.song);
-    }  if (category in categoryImages) {
-        pimg.src = categoryImages[category];
-    } else {
+    }   else {
         pimg.src = categoryImages['default'];
     }
 
