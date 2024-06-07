@@ -276,6 +276,21 @@ background-color:red;
         }
 #sr{ border-bottom:1px solid grey;
 }
+#gg{        text-align:left;
+            font-size:20px; 
+            width:260px;
+            padding:45px 15px 60px 15px;
+            top:170px;
+            border-radius:2px;
+            display:none;
+            position: absolute;
+            left:25px;
+            background-color: pink;            
+            box-shadow: 5px 20px 20px rgba(0, 0, 0, 0.2);
+            border-radius:8px;
+border:2px solid grey;
+color:white;
+}
 </style>
 </head>
 <body id="body">
@@ -360,7 +375,7 @@ background-color:red;
 <button id="b1" onclick="newpage()" class="blinking-butto"> go to music player</button>
 <button id="b2" onclick="feed()">Give Feedback<button><br>
 </footer>
-
+<div id="gg"></div>
 <script>
     
 let currentIndex = 0;
@@ -439,10 +454,14 @@ function toggleMenu() {
                 dropdown.style.display = 'none';
             }, { once: true });
         }
-    }
-        if (!event.target.closest('#searchResults') && !event.target.closest('#searchInput')) {
+    } 
+        if (!event.target.closest('#searchResults') && !event.target.closest('b3')) {
                 searchResults.style.display = 'none';
                 a1.style.display='block';
+            }
+              if (!event.target.closest('#gg') ) {
+                gg.style.display = 'none';
+                
             }
 };
 
@@ -456,82 +475,98 @@ window.location.href ='Check.html';
 
 
 var button = document.getElementById('b3');
-        var input = document.getElementById('musicinput');
-        var tem = document.getElementById('template');
-        var searchResults = document.getElementById('searchResults');
-         var a1= document.getElementById('a1');
-        input.addEventListener('input', function (event) {
-            hd(event);
-        });
+var input = document.getElementById('musicinput');
+var tem = document.getElementById('template');
+var searchResults = document.getElementById('searchResults');
+var a1 = document.getElementById('a1');
+var gg = document.getElementById('gg');
 
-        input.addEventListener('keydown', function (event) {
-            if (event.key === 'Enter') {
-                hd(event);
-            }
-        });
+input.addEventListener('input', function (event) {
+    hd(event);
+});
 
-        button.addEventListener('click', hd);
+input.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') {
+        gg.style.display = 'none';
+        event.preventDefault(); // Prevent the default behavior of the Enter key
+        hd(event);
+    }
+});
 
-        function hd(event) {
-            a1.style.display='block';
-            if (input.value === '' && event.type === 'keydown' && event.key === 'Enter') {
-                button.style.display = "none";
-                tem.style.display = "block";
-                searchResults.style.display = "none";
-            } else if (input.value === '') {
-                button.style.display = "none";
-                tem.style.display = "none";
-                searchResults.style.display = "none";
-            } else {
-                button.style.display = "block";
-                tem.style.display = "none";
-                searchResults.style.display = "block";
-                
-        
-            searchResults.innerHTML ='';
-            var lowerSearchTerm = input.value.toLowerCase().trim();
-            var musicFiles = [
-                { singer: "arjit singh", song: "Choo Lo.mp3", category: "bollywood" },
-                { singer: "Jubin nyautiyal", song: "teri yad.mp3", category: "bollywood" },
-                { singer: "Saterday night", song: "shanivarrati .mp3", category: "party" },
-                { singer: "dj wale babu", song: "dj wale bau mer agana.mp3", category: "party" },
-                { singer: "pyar diwana", song: "pyar Diwana hota hain.mp3", category: "old" },
-                { singer: "ashiq huin main", song: "Aashiq.mp3", category: "old" }
-            ];
+button.addEventListener('click', hd);
 
-            musicFiles.forEach(function (file) {
-                var searchText = `${file.song}-${file.singer}`.toLowerCase();
-                if (searchText.toLowerCase().trim().includes(lowerSearchTerm)) {
-                    var dis = document.getElementById('searchResults');
-                   var  div=document.createElement('div');
-                     div.id='sr';
-                    div.classList.add('search-item');
-                    div.textContent = `▶ ${file.song}-${file.singer}`;
-                    div.addEventListener('click',search); 
-                     button.addEventListener('click',function(event)
-                          {  if(lowerSearchTerm===searchText.toLowerCase().trim())
-                                { search(); } 
-                        });
-                      input.addEventListener('keypress', function(event){
-                            if(event.key==='Enter' && lowerSearchTerm===(searchText.toLowerCase().trim()))
-                                { search();}
-                            });
-                           function search() {
-                      window.location.href = `Music.html?category=${file.category}&singer=${encodeURIComponent(file.singer)}&song=${encodeURIComponent(file.song)}`;
-                    }
-                    dis.appendChild(div);
-                }
-            });
-
-            if (searchResults.innerHTML === '') {
-                searchResults.style.display = 'none';
-              a1.style.display='block';
-            } else {
-                searchResults.style.display = 'block'; 
-              a1.style.display='none';
-            }
+function hd(event) {
+    a1.style.display = 'none';
+    gg.style.display = 'none';
+    tem.style.display = 'none';
+    if (input.value === '') {
+        button.style.display = "none";
+        tem.style.display = "none";
+        searchResults.style.display = "none";
+        a1.style.display = 'block';
+    } 
+     if(input.value === '' && event.key === 'Enter') {        
+        tem.style.display = 'block';                
+    } 
+    else {
+        button.style.display = "block";
+        tem.style.display = "none";
+        searchResults.style.display = "block";
+        if(input.value.trim() === ''){
+            searchResults.style.display = "none";
         }
-   }
+        searchResults.innerHTML = '';
+        var lowerSearchTerm = input.value.toLowerCase().trim();
+        var musicFiles = [
+            { singer: "arjit singh", song: "Choo Lo.mp3", category: "bollywood" },
+            { singer: "Jubin nyautiyal", song: "teri yad.mp3", category: "bollywood" },
+            { singer: "Saterday night", song: "shanivarrati .mp3", category: "party" },
+            { singer: "dj wale babu", song: "dj wale bau mer agana.mp3", category: "party" },
+            { singer: "pyar diwana", song: "pyar Diwana hota hain.mp3", category: "old" },
+            { singer: "ashiq huin main", song: "Aashiq.mp3", category: "old" }
+        ];
+        let found = false; // Initialize found as false
+        musicFiles.forEach(function (file) {
+            var searchText = `${file.song}-${file.singer}`.toLowerCase();
+            if (searchText.includes(lowerSearchTerm)) {
+                found = true; // Set found to true if a match is found
+
+                var dis = document.getElementById('searchResults');
+                var div = document.createElement('div');
+                div.id = 'sr';
+                div.classList.add('search-item');
+                div.textContent = `▶ ${file.song}-${file.singer}`;
+                div.addEventListener('click', search);
+                dis.appendChild(div);
+            }
+          function search() {
+    
+        window.location.href = `Music.html?category=${file.category}&singer=${encodeURIComponent(file.singer)}&song=${encodeURIComponent(file.song)}`;
+    
+}
+if(event.key==='Enter' && lowerSearchTerm===(searchText.toLowerCase().trim()))
+                                { search(); 
+                                } 
+if(event.type === 'click' && lowerSearchTerm===(searchText.toLowerCase().trim()))
+                                { search(); 
+                                } 
+        });
+
+        if (!found  && event && event.type === 'keydown' && event.key === 'Enter' ) {
+            tem.style.display = 'none';
+            gg.style.display = 'block';
+            gg.innerHTML = `Search not found on site, ☹️ apologies for that. Click <a href="https://www.google.com/search?q=${encodeURIComponent(input.value)}+song+music" target="_blank">here</a> to search on Google.`;
+        }
+        if (!found && event.type === 'click' && event.target.id === 'b3')
+                        { tem.style.display = 'none';
+            gg.style.display = 'block';
+            gg.innerHTML = `Search not found on site, ☹️ apologies for that. Click <a href="https://www.google.com/search?q=${encodeURIComponent(input.value)}+song+music" target="_blank">here</a> to search on Google.`;
+      
+                        } 
+    }
+}
+
+
 </script>
 </body>
-                                   </html>
+                    </html>
