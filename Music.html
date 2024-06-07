@@ -179,7 +179,7 @@ bottom:27px;
 </div><br>
 
   <div id="playerSection">
-        <h3></h3>
+        <h4></h4>
         <audio controls id="audioPlayer"></audio>
     </div>
 <img id="cimg2" class="cimg" src="play.jpeg" alt="song wave" >
@@ -298,7 +298,7 @@ var imgg = document.createElement("img");
                 imgg.alt = "Play";
 
                 var h4 = document.createElement("h4");
-                h4.textContent = file.singer;
+                h4.textContent = file.song;
 
                 section.appendChild(imgg);
                 section.appendChild(h4);
@@ -313,7 +313,7 @@ var imgg = document.createElement("img");
 
             function playSong(singer, song) {
                 playerSection.style.display = "block";
-                playerSection.querySelector("h3").textContent = "▪️" + singer;
+                playerSection.querySelector("h4").textContent = "▪️" + song;
                 audioPlayer.src = song;
                 audioPlayer.play();
 
