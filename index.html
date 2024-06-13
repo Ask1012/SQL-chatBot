@@ -3,44 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enter Key Shortcut</title>
+    <title>Human Verification</title>
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+        .verification-box {
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            width: 300px;
+            text-align: center;
         }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
+        .verification-box input {
+            margin-top: 10px;
+        }
+      .blinking {
+            animation: blink .8s step-start infinite;
+        }
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
         }
     </style>
 </head>
 <body>
-    <button id="enterButton">Press Enter</button>
 
-    <script>
-        document.getElementById('enterButton').addEventListener('click', function() {
-            simulateEnterKey();
-        });
+<div class="verification-box">
+    <h1> let's start GAME</h11>
+    <h2 id="question"></h2>
+    <input type="number" id="answer" placeholder="Your answer" style="width:200px; height:40px; padding:10px;font-size:20px;position: relative;left:5px;">
+    <button onclick="verify()" style="width:60px; position: relative; top:0px;left:8px; height:50px;">Submit</button>
+    <h2 id="result"></h2>
+<h3 id="chance"> you 'v only 4 chances</h3>
+</div>
 
-        function simulateEnterKey() {
-            var event = new KeyboardEvent('keydown', {
-                key: 'Enter',
-                keyCode: 13,
-                code: 'Enter',
-                which: 13,
-                bubbles: true,
-                cancelable: true
-            });
+<script>
+    let num1, num2, correctAnswer;
+    let chance=4;
+   let chancee=document.getElementById("chance");
+    function generateQuestion() {
+      chance=4;
+          
+       num1 = Math.floor(Math.random() * 20) + 1;
+         
+        document.getElementById('question').textContent = `Guess number hidden in 🎁box  (between 1-20)`;
+    }
+document.getElementById('answer').addEventListener('keyup', function (){
+        if(event.key=='Enter'){
+            verify();
+}
+});
+    function verify() {
+        const userAnswer = parseInt(document.getElementById('answer').value, 10);
+        const resultElement = document.getElementById('result');
+              chance=chance-1; 
+            if( userAnswer < num1)
+            {  chancee.classList.add("blinking");
+                   if (userAnswer < 0)
+                  {resultElement.textContent = ` number is greater than  0 🤡 `;  
+                }
+               else {  resultElement.textContent = ` number is greater than  ${userAnswer} 🤡   `;
+              resultElement.style.color = 'red';                   
+                }        
+              chancee.style.display="block";
+              chancee.textContent=`Remaining chances are ${chance}`;                    
+            }
+         else if (userAnswer > num1)
+            {     chancee.classList.add("blinking");
+                  if (userAnswer > 20)
+                  { resultElement.textContent = `Number is Less than  20 🤡 `;  
+                }
+                 else { resultElement.textContent = ` Number is Less than  ${userAnswer} 🤡  `;  
+                  resultElement.style.color = 'red';      }
+                chancee.style.display="block";
+              chancee.textContent=`Remaining chances are ${chance}`;
+            }
+       else if (userAnswer === num1) {
+            resultElement.textContent = 'Matched 🗿  play again 🤓';
+            
+            resultElement.style.color = 'green';
+                chancee.style.display="none";
+          window.onload= generateQuestion();
+        } 
+         if(chance <1)
+                  { 
+                       resultElement.style.color="green";
+                     resultElement.textContent=` GAME Over 👽 correct guess is ${num1}  play again 🤓`;
+                          chancee.style.display="none";
+                         window.onload= generateQuestion();
+                  }
+    }
 
-            document.dispatchEvent(event);
-        }
-    </script>
+    // Generate the first question when the page loads
+    window.onload = generateQuestion;
+</script>
+
 </body>
 </html>
