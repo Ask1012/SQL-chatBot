@@ -1,113 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catch the Ball Game</title>
-    <link rel="stylesheet" href="styles.css">
-<style>
-body {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f0f0f0;
-}
-
-#gameArea {
-    position: relative;
-    width: 600px;
-    height: 600px;
-    border: 2px solid #000;
-    background-color: #fff;
-    overflow: hidden;
-}
-
-#basket {
-    position: absolute;
-    bottom: 0;
-    width: 100px;
-    height: 30px;
-    background-color: #333;
-    border-radius: 10px;
-}
-
-#ball {
-    position: absolute;
-    top: 0;
-    width: 30px;
-    height: 30px;
-    background-color: red;
-    border-radius: 50%;
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moving Button</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f3f4f6;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .moving-button {
+      padding: 12px 24px;
+      background-color: #4CAF50;
+      color: #fff;
+      font-size: 1rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.2s ease;
+    }
+  </style>
 </head>
 <body>
-    <div id="gameArea">
-        <div id="basket"></div>
-        <div id="ball"></div>
-    </div>
-    <script>
-document.addEventListener('DOMContentLoaded', () => {
-    const basket = document.getElementById('basket');
-    const ball = document.getElementById('ball');
-    const gameArea = document.getElementById('gameArea');
-    let basketX = gameArea.offsetWidth / 2 - basket.offsetWidth / 2;
-    let ballY = 0;
-    let ballSpeed = 2;
+  <button class="moving-button" onclick="moveButton()">Move Me!</button>
 
-    // Set initial position
-    basket.style.left = `${basketX}px`;
-    ball.style.left = `${Math.random() * (gameArea.offsetWidth - ball.offsetWidth)}px`;
+  <script>
+    function moveButton() {
+      var button = document.querySelector('.moving-button');
+      var newX = Math.random() * (window.innerWidth - button.offsetWidth);
+      var newY = Math.random() * (window.innerHeight - button.offsetHeight);
 
-    // Basket movement
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowLeft' && basketX > 0) {
-            basketX -= 20;
-        } else if (e.key === 'ArrowRight' && basketX < gameArea.offsetWidth - basket.offsetWidth) {
-            basketX += 20;
-        }
-        basket.style.left = `${basketX}px`;
-    });
-
-    // Ball falling
-    function dropBall() {
-        if (ballY < gameArea.offsetHeight - ball.offsetHeight) {
-            ballY += ballSpeed;
-            ball.style.top = `${ballY}px`;
-            requestAnimationFrame(dropBall);
-        } else {
-            checkCatch();
-            resetBall();
-            requestAnimationFrame(dropBall);
-        }
+      button.style.transform = `translate(${newX}px, ${newY}px)`;
     }
-
-    function checkCatch() {
-        const basketRect = basket.getBoundingClientRect();
-        const ballRect = ball.getBoundingClientRect();
-
-        if (
-            ballRect.bottom >= basketRect.top &&
-            ballRect.left >= basketRect.left &&
-            ballRect.right <= basketRect.right
-        ) {
-            alert('Caught!');
-        } else {
-            alert('Missed!');
-        }
-    }
-
-    function resetBall() {
-        ballY = 0;
-        ball.style.top = `${ballY}px`;
-        ball.style.left = `${Math.random() * (gameArea.offsetWidth - ball.offsetWidth)}px`;
-    }
-
-    dropBall();
-});
-</script>
+  </script>
 </body>
 </html>
