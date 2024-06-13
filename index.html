@@ -1,44 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Moving Button</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f3f4f6;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-    .moving-button {
-      padding: 12px 24px;
-      background-color: #4CAF50;
-      color: #fff;
-      font-size: 1rem;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      position: relative;
-      transition: transform 0.2s ease;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter Key Shortcut</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-  <button class="moving-button" onclick="moveButton()"> Click me!</button>
+    <button id="enterButton">Press Enter</button>
 
-  <script>
-    function moveButton() {
-      var button = document.querySelector('.moving-button');
-      var newX = Math.random() * (window.innerWidth - button.offsetWidth);
-      var newY = Math.random() * (window.innerHeight - button.offsetHeight);
+    <script>
+        document.getElementById('enterButton').addEventListener('click', function() {
+            simulateEnterKey();
+        });
 
-      button.style.transform = `200px, 300px)`;
-    }
-  </script>
+        function simulateEnterKey() {
+            var event = new KeyboardEvent('keydown', {
+                key: 'Enter',
+                keyCode: 13,
+                code: 'Enter',
+                which: 13,
+                bubbles: true,
+                cancelable: true
+            });
+
+            document.dispatchEvent(event);
+        }
+    </script>
 </body>
 </html>
