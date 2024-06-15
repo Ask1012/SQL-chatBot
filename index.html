@@ -104,13 +104,13 @@
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': 'Bearer sk-proj-utUQvrmGmfxJXLLswMUgT3BlbkFJj1DRDjcSquvVqJ3o5CfJ'
+                        'Authorization': 'Bearer YOUR_OPENAI_API_KEY'
                     },
                     body: JSON.stringify({ prompt: userInput })
                 });
 
                 if (!response.ok) {
-                    throw new Error('Failed to fetch response from ChatGPT API');
+                    throw new Error(`Failed to fetch response from ChatGPT API: ${response.status} ${response.statusText}`);
                 }
 
                 const data = await response.json();
@@ -118,7 +118,7 @@
 
                 displayMessage(botResponse, 'bot');
             } catch (error) {
-                console.error('Error:', error);
+                console.error('Error:', error.message);
                 displayMessage('Failed to fetch response from ChatGPT API', 'bot');
             }
         }
