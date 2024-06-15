@@ -110,7 +110,7 @@
                 });
 
                 if (!response.ok) {
-                    throw new Error(`Failed to fetch response from ChatGPT API: ${response.status} ${response.statusText}`);
+                    throw new Error('Failed to fetch response from ChatGPT API');
                 }
 
                 const data = await response.json();
@@ -118,7 +118,7 @@
 
                 displayMessage(botResponse, 'bot');
             } catch (error) {
-                console.error('Error:', error.message);
+                console.error('Error:', error);
                 displayMessage('Failed to fetch response from ChatGPT API', 'bot');
             }
         }
