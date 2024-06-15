@@ -100,13 +100,12 @@
             document.getElementById('user-input').value = '';
 
             try {
-                const response = await fetch('https://api.openai.com/v1/engines/davinci-codex/completions', {
+                const response = await fetch('https://your-backend-server.com/chat', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Authentication dfded5ff9a7a43aa9354c47087f7e91f'
+                        'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ prompt: userInput })
+                    body: JSON.stringify({ message: userInput })
                 });
 
                 if (!response.ok) {
@@ -114,7 +113,7 @@
                 }
 
                 const data = await response.json();
-                const botResponse = data.choices[0].text.trim();
+                const botResponse = data.response.trim();
 
                 displayMessage(botResponse, 'bot');
             } catch (error) {
