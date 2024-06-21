@@ -94,7 +94,8 @@
         const input = document.querySelector('.input-container textarea');
         const button = document.querySelector('.input-container button');
         const chatContainer = document.querySelector('.chat-container');
-         button.addEventListener('click', () => {
+        const inputcontainer = document.querySelector('.input-container');
+        button.addEventListener('click', () => {
             const message = input.value;
             if (message.trim()) {
                 const userMessage = document.createElement('div');
@@ -107,7 +108,8 @@
                 botResponse.className = 'message bot';
                 botResponse.textContent = "Hey, this is a response from the bot";
                 chatContainer.appendChild(botResponse);
-                
+               
+                inputcontainer.style.margin = '0 0 75px';
                 input.style.margin = '0 0 20px';
                 input.value = '';
                 chatContainer.scrollTop = chatContainer.scrollHeight;
