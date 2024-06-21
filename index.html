@@ -111,6 +111,7 @@
             }
         });
       
+input.addEventListener('click', adjustTextareaHeight);
 
 
     input.addEventListener('input', adjustTextareaHeight);
@@ -118,7 +119,7 @@
 function adjustTextareaHeight() {
  const text=document.getElementById('inputtext');
   const inputfield = document.querySelector('.input-container');
-    inputfield.style.top='-20px';    
+    inputfield.style.top='-6px';    
     text.style.height = 'auto';
     text.style.height = input.scrollHeight + 'px';    
      
