@@ -26,6 +26,7 @@
             padding: 10px;
             overflow-y: auto;
             background-color: #f0f0f0;
+              height:30000px;
         }
         .message {
             max-width: 90%;
@@ -47,7 +48,7 @@
         .input-container {
             height:10px;
             position:relative;
-          top:-150px
+          top:-110px
             display: flex;
             padding: 10px;
             background-color: #fff;
@@ -58,13 +59,13 @@
             width:240px;
             height:25px;
         position:relative;
-            top:-2px;left:10px;
+            top:-30px;left:10px;
             flex: 1;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 16px;
-            margin:0 0 1px;
+            
         }
         .button {
             padding: 10px 15px;
@@ -78,12 +79,11 @@
             width:60px;
             height:45px;
             position:relative;
-            top:-52px;
+            top:-40px;
             left:270px;
         }
-        #inputfield{
-            poaition:relative;
-            top:-20px;
+         #ifield{ position:relative;
+        top:40px;
         }
     </style>
 </head>
@@ -94,8 +94,8 @@
         <div class="message user"></div>
     </div>
     
-      <div>  <textarea class="textarea" placeholder="Type your Query..." rows="2" cols="80" ></textarea></div>
-<button class="button">Send</button>
+     <div id="ifield">  <textarea class="textarea" placeholder="Type your Query..." rows="2" cols="80" ></textarea>  
+</div><button class="button">Send</button>
     
     <script>
         const input = document.querySelector('.textarea');
@@ -133,4 +133,5 @@ text.style.height = text.scrollHeight + 'px';
 
     </script>
 </body>
+</html></body>
 </html>
