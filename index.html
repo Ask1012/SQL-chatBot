@@ -12,7 +12,13 @@
             font-family: Arial, sans-serif;
             height: 100vh;
         }
-        
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-size: 24px;
+        }
         .chat-container {
             flex: 1;
             display: flex;
@@ -39,8 +45,6 @@
             background-color: lightgrey;
         }
         .input-container {
-            position:relative;
-          top:-50px;
             display: flex;
             padding: 10px;
             background-color: #fff;
@@ -52,8 +56,6 @@
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 16px;
-            outline:none;
-            height:20px;
         }
         .input-container button {
             padding: 10px 15px;
@@ -64,14 +66,13 @@
             border-radius: 5px;
             font-size: 16px;
             cursor: pointer;
-            width:60px;
-            height:40px;
-
+            width:70px;
+            height:50px;
         }
     </style>
 </head>
 <body>
-    
+    <header>ChatGPT</header>
     <div class="chat-container">
         <div class="message bot"></div>
         <div class="message user"></div>
@@ -84,8 +85,7 @@
         const input = document.querySelector('.input-container textarea');
         const button = document.querySelector('.input-container button');
         const chatContainer = document.querySelector('.chat-container');
-        
-        button.addEventListener('click', () => {
+         button.addEventListener('click', () => {
             const message = input.value;
             if (message.trim()) {
                 const userMessage = document.createElement('div');
@@ -98,9 +98,8 @@
                 botResponse.className = 'message bot';
                 botResponse.textContent = "Hey, this is a response from the bot";
                 chatContainer.appendChild(botResponse);
-
-                input.style.top ='-10px';
-                input.style.height = '20px';
+                
+                input.style.height = '25px';
                 input.value = '';
                 chatContainer.scrollTop = chatContainer.scrollHeight;
             }
@@ -120,4 +119,3 @@ function adjustTextareaHeight() {
     </script>
 </body>
 </html>
-
