@@ -13,7 +13,7 @@
             height: 100vh;
         }
         header {
-            background-color: #f0f0f0;;
+            background-color: #007bff;
             color: white;
             padding: 10px;
             text-align: center;
@@ -26,7 +26,6 @@
             padding: 10px;
             overflow-y: auto;
             background-color: #f0f0f0;
-              height:30000px;
         }
         .message {
             max-width: 90%;
@@ -37,37 +36,28 @@
         }
         .user {
             align-self: left;
-            background-color: lightgrey;
+            background-color: lightblue;
             color: black;
           display:none;
         }
         .bot {
             align-self: flex-start;
-            background-color: lightblue;
+            background-color: lightgrey;
         }
         .input-container {
-            height:10px;
-            position:relative;
-          top:-110px
             display: flex;
             padding: 10px;
             background-color: #fff;
             border-top: 1px solid #ccc;
-            margin:0 0 100px;
         }
-        .textarea{
-            width:240px;
-            height:25px;
-        position:relative;
-            top:-45px;left:10px;
+        .input-container textarea{
             flex: 1;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 16px;
-            
         }
-        .button {
+        .input-container button {
             padding: 10px 15px;
             margin-left: 10px;
             background-color: #007bff;
@@ -76,33 +66,26 @@
             border-radius: 5px;
             font-size: 16px;
             cursor: pointer;
-            width:60px;
-            height:45px;
-            position:relative;
-            top:-65px;
-            left:270px;
-        }
-         #ifield{ position:relative;
-        top:20px;
+            width:70px;
+            height:50px;
         }
     </style>
 </head>
 <body>
-    
+    <header>ChatGPT</header>
     <div class="chat-container">
         <div class="message bot"></div>
         <div class="message user"></div>
     </div>
-    
-     <div id="ifield">  <textarea class="textarea" placeholder="Type your Query..." rows="2" cols="80" ></textarea>  
-</div><button class="button">Send</button>
-    
+    <div class="input-container">
+        <textarea id="inputtext" type="text" placeholder="Type your message..."></textarea>
+        <button>Send</button>
+    </div>
     <script>
-        const input = document.querySelector('.textarea');
-        const button = document.querySelector('.button');
+        const input = document.querySelector('.input-container textarea');
+        const button = document.querySelector('.input-container button');
         const chatContainer = document.querySelector('.chat-container');
-        const inputcontainer = document.querySelector('.textarea');
-        button.addEventListener('click', () => {
+         button.addEventListener('click', () => {
             const message = input.value;
             if (message.trim()) {
                 const userMessage = document.createElement('div');
@@ -115,7 +98,8 @@
                 botResponse.className = 'message bot';
                 botResponse.textContent = "Hey, this is a response from the bot";
                 chatContainer.appendChild(botResponse);
-                input.style.height='25px';
+                
+                input.style.height = '25px';
                 input.value = '';
                 chatContainer.scrollTop = chatContainer.scrollHeight;
             }
@@ -126,12 +110,12 @@
     input.addEventListener('input', adjustTextareaHeight);
 
 function adjustTextareaHeight() {
- const text = document.getElementsByClassName('textarea')[0];
-text.style.height = 'auto';
-text.style.height = text.scrollHeight + 'px';
+ const text=document.getElementById('inputtext');
+    text.style.height = 'auto';
+    text.style.height = input.scrollHeight + 'px';    
+     
 }
 
     </script>
 </body>
-</html></body>
 </html>
