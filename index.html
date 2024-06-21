@@ -50,7 +50,7 @@
             background-color: #fff;
             border-top: 1px solid #ccc;
             position: relative;
-            top:-69px;
+            top:1px;
         }
         .input-container textarea{
             flex: 1;
@@ -58,8 +58,7 @@
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 16px;
-            position:relative;
-            top:400px;
+            
         }
         .input-container button {
             padding: 10px 15px;
@@ -72,8 +71,7 @@
             cursor: pointer;
             width:70px;
             height:50px;
-            position:relative;
-            top:400px;
+            ;
         }
     </style>
 </head>
@@ -82,12 +80,12 @@
     <div class="chat-container">
         <div class="message bot"></div>
         <div class="message user"></div>
-    
+    </div>
     <div class="input-container">
         <textarea id="inputtext" type="text" placeholder="Type your message..."></textarea>
         <button>Send</button>
     </div>
-    </div>
+    
     <script>
         const input = document.querySelector('.input-container textarea');
         const button = document.querySelector('.input-container button');
