@@ -52,18 +52,21 @@
             padding: 10px;
             background-color: #fff;
             border-top: 1px solid #ccc;
-            margin:0 0 130px;
+            margin:0 0 100px;
         }
-        .input-container textarea{
+        .textarea{
             width:240px;
-        
+            height:25px;
+        position:relative;
+            top:30px;left:10px;
             flex: 1;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 16px;
+            
         }
-        .input-container button {
+        .button {
             padding: 10px 15px;
             margin-left: 10px;
             background-color: #007bff;
@@ -74,8 +77,8 @@
             cursor: pointer;
             width:60px;
             height:45px;
-            position:absolute;
-            top:12px;
+            position:relative;
+            top:-20px;
             left:270px;
         }
     </style>
@@ -86,15 +89,15 @@
         <div class="message bot"></div>
         <div class="message user"></div>
     </div>
-    <div class="input-container">
-        <textarea id="inputtext" type="text" placeholder="Type your Query..."></textarea>
-        <button>Send</button>
-    </div>
+    
+      <div>  <textarea class="textarea" placeholder="Type your Query..." rows="2" cols="80" ></textarea>  </div>
+<button class="button">Send</button>
+    
     <script>
-        const input = document.querySelector('.input-container textarea');
-        const button = document.querySelector('.input-container button');
+        const input = document.querySelector('.textarea');
+        const button = document.querySelector('.button');
         const chatContainer = document.querySelector('.chat-container');
-        const inputcontainer = document.querySelector('.input-container');
+        const inputcontainer = document.querySelector('.textarea');
         button.addEventListener('click', () => {
             const message = input.value;
             if (message.trim()) {
@@ -108,9 +111,7 @@
                 botResponse.className = 'message bot';
                 botResponse.textContent = "Hey, this is a response from the bot";
                 chatContainer.appendChild(botResponse);
-               
-                inputcontainer.style.margin = '0 0 75px';
-                input.style.height = '25px';
+                input.style.height='25px';
                 input.value = '';
                 chatContainer.scrollTop = chatContainer.scrollHeight;
             }
@@ -121,10 +122,9 @@
     input.addEventListener('input', adjustTextareaHeight);
 
 function adjustTextareaHeight() {
- const text=document.getElementById('inputtext');
-    text.style.height = 'auto';
-    text.style.height = input.scrollHeight + 'px';    
-     
+ const text = document.getElementsByClassName('textarea')[0];
+text.style.height = 'auto';
+text.style.height = text.scrollHeight + 'px';
 }
 
     </script>
