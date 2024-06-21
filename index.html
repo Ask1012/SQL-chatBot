@@ -3,148 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chatbot Interface</title>
+    <title>ChatGPT Interface</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f5f5f5;
-        }
-
-        #chat-container {
-            width: 400px;
-            
-             top:235px;
-            border: 1px solid #ccc;
-            border-top:none;
-            border-radius: 8px;
-            background-color: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
             display: flex;
             flex-direction: column;
-            position: relative;     
-              padding:5px;   
-            margin-bottom:10px;                          
+            margin: 0;
+            font-family: Arial, sans-serif;
+            height: 100vh;
         }
-
-        #result-area {
-          position: relative;
-            top:2px;
+        
+        .chat-container {
             flex: 1;
+            display: flex;
+            flex-direction: column;
             padding: 10px;
             overflow-y: auto;
-            border-bottom: 1px solid #ccc;
+            background-color: #f0f0f0;
         }
-
-        #result-area .p1{
-            margin: 0 0 0px;
-            padding:10px;
-          background-color:lightgrey;
-          border-radius:7px;
-        }
-         #result-area .p2{
-            margin: 0 0 10px;
-            padding:10px;          
-          border-radius:7px;
-        }
-
-        #user-input {
-            width: calc(100% - 100px);              
+        .message {
+            max-width: 90%;
+            margin: 5px 0;
             padding: 10px;
-            border: none;
+            border-radius: 10px;
+          display:none;
+        }
+        .user {
+            align-self: left;
+            background-color: lightblue;
+            color: black;
+          display:none;
+        }
+        .bot {
+            align-self: flex-start;
+            background-color: lightgrey;
+        }
+        .input-container {
+            display: flex;
+            padding: 10px;
+            background-color: #fff;
+            border-top: 1px solid #ccc;
+        }
+        .input-container textarea{
+            flex: 1;
+            padding: 10px;
             border: 1px solid #ccc;
-            outline: none;
-            font-size:16px;
-          height:25px;
-          position: relative;
-          left:8px; top:10px;
-         border-radius:8px;
-          margin-top:-30px;
-          margin-bottom:20px;
+            border-radius: 5px;
+            font-size: 16px;
+            outline:none;
+            height:20px;
         }
-
-        #send-button {
-            width: 50px;
-            border: none;
+        .input-container button {
+            padding: 10px 15px;
+            margin-left: 10px;
             background-color: #007bff;
-            color: #fff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
             cursor: pointer;
-            outline: none;
-            position: relative;
-            left:295px;top:20px;
-        padding:10px;
-        }
+            width:60px;
+            height:40px;
 
-        #send-button:hover {
-            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-    <div id="chat-container">        
-    <div id="result-area"></div>
-      <button id="send-button">Send</button>
-   
-    <textarea id="user-input" placeholder="Type your message here..."></textarea>               
+    
+    <div class="chat-container">
+        <div class="message bot"></div>
+        <div class="message user"></div>
+    </div>
+    <div class="input-container">
+        <textarea id="inputtext" type="text" placeholder="Type your message..."></textarea>
+        <button>Send</button>
     </div>
     <script>
-        document.getElementById('send-button').addEventListener('click', sendMessage);
+        const input = document.querySelector('.input-container textarea');
+        const button = document.querySelector('.input-container button');
+        const chatContainer = document.querySelector('.chat-container');
+         button.addEventListener('click', () => {
+            const message = input.value;
+            if (message.trim()) {
+                const userMessage = document.createElement('div');
+                userMessage.className = 'message user';
+                userMessage.textContent = message;
+                userMessage.style.display='flex';
+                chatContainer.appendChild(userMessage);
+                const botResponse = document.createElement('div');
+                botResponse.style.display='flex';
+                botResponse.className = 'message bot';
+                botResponse.textContent = "Hey, this is a response from the bot";
+                chatContainer.appendChild(botResponse);
+                
+                input.style.height = '20px';
+                input.value = '';
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+        });
+      
 
-function sendMessage() {
-    const userInput = document.getElementById('user-input');
-    const userInputValue = userInput.value;
-  
-    if (userInputValue.trim() === '') { 
-        
-        return;
-    }
 
-    const resultArea = document.getElementById('result-area');
-
-    // Add user message to the chat
-    const userMessage = document.createElement('p');
-    userMessage.classList.add('p2');
-    userMessage.textContent = 'User: ' + userInputValue;
-    resultArea.appendChild(userMessage);
-
-    // Clear input field and reset height
-    userInput.value = '';
-    userInput.style.height = '25px';
-
-    // Mock bot response
-    const botResponse = document.createElement('p');
-    botResponse.textContent = 'Bot: ' + getBotResponse(userInputValue);
-    resultArea.appendChild(botResponse);
-    botResponse.classList.add('p1');
-
-    // Scroll to the bottom
-    resultArea.scrollTop = resultArea.scrollHeight;
-}
-
-function getBotResponse(input) {
-    // Placeholder for bot response logic
-    return 'This is a placeholder response to "' + input + '"';
-}
-
-document.getElementById('user-input').addEventListener('input', adjustTextareaHeight);
+    input.addEventListener('input', adjustTextareaHeight);
 
 function adjustTextareaHeight() {
- const chatContainer=document.getElementById('chat-container');
-    const button = document.getElementById('send-button');  
-    const textarea = document.getElementById('user-input');
-    textarea.style.height = 'auto';
-    textarea.style.height = textarea.scrollHeight + 'px';
-    chatContainer.style.height='auto';
-      chatContainer.style.height = chatContainer.scrollHeight + 'px';
-    
+ const text=document.getElementById('inputtext');
+    text.style.height = 'auto';
+    text.style.height = input.scrollHeight + 'px';    
+     
 }
-
 
     </script>
 </body>
 </html>
+
