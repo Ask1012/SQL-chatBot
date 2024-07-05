@@ -1,399 +1,130 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>college canteen menu</title>
+    <title>SQL ChatBot</title>
     <style>
-        /* basic reset and global styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            user-select: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            font-family: arial, sans-serif;
-            line-height: 1.6;
-            background-color: #f0f0f0;
-            margin: 20px;
-        }
-
-        header {
-            border-radius: 20px;
-            text-align: center;
-            color: #fff;
-            padding: 10px;
-            margin-bottom: 20px;
-            background-color: pink;
-        }
-
-        main {
             display: flex;
             flex-direction: column;
-            align-items: center;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            height: 100vh;
         }
-
-        .menu-section {
-            width: 80%;
-            max-width: 600px;
-            background-color: #fff;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 8px;
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-size: 24px;
         }
-
-        .menu-section h2 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            border-bottom: 1px solid #ccc;
-            padding-bottom: 5px;
-        }
-
-        .menu-list {
-            list-style-type: none;
-            padding: 0;
-            margin-top: 10px;
-        }
-
-        .item-row {
+        .chat-container {
+            flex: 1;
             display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-            background-color: #f2f2f2;
+            flex-direction: column;
+            padding: 10px;
+            overflow-y: auto;
+            background-color: #f0f0f0;
+        }
+        .message {
+            max-width: 90%;
+            margin: 5px 0;
             padding: 10px;
             border-radius: 10px;
+          display:none;
         }
-
-        .color-block {
-            width: 20px;
-            height: 20px;
-            border-radius: 4px;
-            margin-right: 10px;
-        }
-
-        .item-name {
-            flex: 1;
-        }
-        
-        .item-price {
-            position: relative;
-            top: 0px;
-            flex: 1;
-            left: 20px;
-        }
-        
-        .item-quantity {
-            position: relative;
-            top: -10px;
-            left: 35px;
-        }
-        
-        .quantity-selector {
-            position: relative;
-            top: 10px;
-            width: 30px;
-        }
-
-        .table-buttons {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            background-color: lightgrey;
-            padding: 8px;
-            border-radius: 30px;
-        }
-
-        .table-button {
-            padding: 10px;
-            margin: 5px;
-            background-color: white;
-            color: red;
-            border: none;
-            border-radius: 9px;
-            cursor: pointer;
-        }
-
-        .selected-table {
-            background-color: black !important;
-        }
-        
-        .order-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-            width: 80%;
-            max-width: 400px;
-        }
-
-        .order-button {
-            flex: 1;
-            padding: 10px;
-            background-color: yellow;
+        .user {
+            align-self: left;
+            background-color: lightblue;
             color: black;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
+          display:none;
         }
-
-        .cancel-order {
-            flex: 1;
-            margin-left: 10px;
+        .bot {
+            align-self: flex-start;
+            background-color: lightgrey;
+        }
+        .input-container {
+            display: flex;
             padding: 10px;
-            background-color: #ff6347;
-            color: #fff;
+            background-color: #fff;
+            border-top: 1px solid #ccc;
+            position: relative;
+            top:-55px;
+        }
+        .input-container textarea{
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            
+        }
+        .input-container button {
+            padding: 10px 15px;
+            margin-left: 10px;
+            background-color: #007bff;
+            color: white;
             border: none;
-            border-radius: 4px;
+            border-radius: 5px;
+            font-size: 16px;
             cursor: pointer;
-        }
-
-        .hanging-page {
-            background-image: url('f2.jpg');
-            background-size: 300px 350px;
-            background-color: white;
-            padding: 20px;
-            margin-bottom: 30px;
-            border-radius: 10px;
-            box-shadow: 0 10px 20px grey;
-            position: relative;
-            transform-origin: top center;
-            animation: sway 3s infinite ease-in-out;
-        }
-
-        .hanging-page:before,
-        .hanging-page:after {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            width: 2px;
-            height: 10px;
-            background-color: #333;
-            transform: translatex(-50%);
-        }
-
-        .hanging-page:before {
-            transform: translatex(-50%) rotate(45deg);
-        }
-
-        .hanging-page:after {
-            transform: translatex(-50%) rotate(-45deg);
-        }
-
-        @keyframes sway {
-            0% {
-                transform: rotatez(-5deg);
-            }
-            50% {
-                transform: rotatez(5deg);
-            }
-            100% {
-                transform: rotatez(-5deg);
-            }
-        }
-
-        .hanging-page:hover {
-            animation-play-state: paused;
-        }
-
-        .pin {
-            position: relative;
-            top: -20px;
-            left: 89px;
-            width: 20px;
+            width:70px;
+            height:40px;
+            ;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1> स द् गु रू canteen <br> (s g m)</h1>
-        <h5 id="ask"> ask.com</h5>
-    </header>
-    <a id="clgid" href="clg.html"><h7>more about college click here</h7></a>
-    <div class="offers blink">
-        <h2>special offers: 10% off on pizzas!</h2>
+    <header>SQL ChatBot</header>
+    <div class="chat-container">
+        <div class="message bot"></div>
+        <div class="message user"></div>
     </div>
-    <p>select quantity and place your order.<br> <b> _______________enjoy the food_____________ </b><br><br>
-        <h3> menu cards </h3><br>
-    </p>
+    <div class="input-container">
+        <textarea id="inputtext" type="text" placeholder="Type your Query here..."></textarea>
+        <button>Send</button>
+    </div>
     
-        <h2> ◾fast food 👀</h2><br>
-        <section class="hanging-page" style="width:260px;">
-            <div class="menu-list" style="wwidth:20px;">
-                <div class="item-row">
-                    <div class="color-block" style="background-color: #d8bfd8;">🥪</div>
-                    <span class="item-name">sandwich</span>
-                    <span class="item-price"> ₹80</span>
-                    <span class="item-quantity" style="position: relative; left:25px;">quantity:</span>
-                    <select class="quantity-selector" style="position: relative; left:-25px;">
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                    </select>
-                </div>
-            </div>
-        </section>
-
-        <h4> kindly select your table before placing order </h4>
-
-        <div class="table-buttons">
-            <button class="table-button" data-table="1">table 1</button>
-            <button class="table-button" data-table="2">table 2</button>
-            <button class="table-button" data-table="3">table 3</button>
-            <button class="table-button" data-table="4">table 4</button>
-            <button class="table-button" data-table="5">table 5</button>
-            <button class="table-button" data-table="6">table 6</button>
-        </div>
-
-        <div class="order-buttons">
-            <button class="order-button">place order</button>
-            <button class="cancel-order">cancel order</button>
-        </div>
-
-        <div class="bill-section">
-            <h2>bill</h2>
-            <div class="bill-details">
-                <p><strong>table number:</strong> <span id="table-number"></span></p>
-                <p><strong>items:</strong></p>
-                <ul id="bill-items"></ul>
-                <p class="bill-total"><strong>total:</strong><span id="total-amount"></span></p>
-            </div>
-            <div class="payment-options">
-                <button class="payment-button">pay online</button>
-                <button id="cashbutton" class="payment-button">pay with cash</button>
-            </div><br>
-            <p id="payment-status"></p>
-        </div><br>
-    
-
     <script>
-                           document.addEventListener('DOMContentLoaded', function() {
-            const tableButtons = document.querySelectorAll('.table-button');
-            const orderButton = document.querySelector('.order-button');
-            const cancelOrderButton = document.querySelector('.cancel-order');
-            const billSection = document.querySelector('.bill-section');
-            const tableNumberDisplay = document.getElementById('table-number');
-            const billItemsList = document.getElementById('bill-items');
-            const totalAmountDisplay = document.getElementById('total-amount');
-            const paymentStatus = document.getElementById('payment-status');
+        const input = document.querySelector('.input-container textarea');
+        const button = document.querySelector('.input-container button');
+        const chatContainer = document.querySelector('.chat-container');
+        button.addEventListener('click', () => {
+            const message = input.value;
+            if (message.trim()) {
+                const userMessage = document.createElement('div');
+                userMessage.className = 'message user';
+                userMessage.textContent = message;
+                userMessage.style.display='flex';
+                chatContainer.appendChild(userMessage);
+                const botResponse = document.createElement('div');
+                botResponse.style.display='flex';
+                botResponse.className = 'message bot';
+                botResponse.textContent = "Hey, this is a response from the bot";
+                chatContainer.appendChild(botResponse);
 
-            let selectedTable = null;
-            let orderItems = [];
-            let totalAmount = 0;
-
-            // Table selection, order placement, cancellation logic
-            tableButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    selectedTable = button.dataset.table;
-                    tableButtons.forEach(btn => btn.classList.remove('selected-table'));
-                    button.classList.add('selected-table');
-                    tableNumberDisplay.textContent = selectedTable;
-                });
-            });
-
-            orderButton.addEventListener('click', () => {
-                if (selectedTable === null) {
-                    alert('Please select a table first.');
-                    return;
-                }
-
-                const menuSections = document.querySelectorAll('.hanging-page');
-                orderItems = []; // Initialize orderItems here
-
-                menuSections.forEach(section => {
-                    const menuItems = section.querySelectorAll('.item-row');
-
-                    menuItems.forEach(item => {
-                        const itemName = item.querySelector('.item-name').textContent;
-                        const quantity = parseInt(item.querySelector('.quantity-selector').value);
-                        const itemPrice = parseFloat(item.querySelector('.item-price').textContent.replace('₹', ''));
-
-                        if (quantity > 0) {
-                            const existingItem = orderItems.find(order => order.name === itemName);
-                            if (existingItem) {
-                                existingItem.quantity = quantity;
-                            } else {
-                                orderItems.push({ name: itemName, quantity: quantity, price: itemPrice });
-                            }
-                        }
-                    });
-                });
-
-                if (orderItems.length === 0) {
-                    alert('Please place an order first.');
-                    return;
-                }
-
-                // Create order details object
-                const orderDetails = {
-                    table: selectedTable,
-                    timestamp: new Date().toISOString(),
-                    items: orderItems
-                };
-
-                const kitchenUrl = 'https://ask1012.github.io/Ask_Projects/'; // URL to kitchen.html
-
-                fetch(kitchenUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(orderDetails)
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
                 
-                
-                .then(data => {
-                    // Handle response from kitchen.html if needed
-                    console.log('Order sent successfully:', data);
-                    // Example: show payment status or confirmation message
-                    paymentStatus.textContent = 'Order placed successfully!';
-                    // Update bill display
-                    billItemsList.innerHTML = '';
-                    totalAmount = 0;
-                    orderItems.forEach(item => {
-                        const listItem = document.createElement('li');
-                        listItem.textContent = `${item.name} x ${item.quantity} - ₹${item.price * item.quantity}`;
-                        billItemsList.appendChild(listItem);
-                        totalAmount += item.price * item.quantity;
-                    });
-                    totalAmountDisplay.textContent = `₹${totalAmount}`;
-                    // Show bill section
-                    billSection.classList.add('visible');
-                })
-                .catch(error => {
-                    console.error('Error sending order:', error);
-                    // Example: show error message or retry logic
-                    paymentStatus.textContent = 'Failed to place order. Please try again.';
-                });
-            });
-
-            cancelOrderButton.addEventListener('click', () => {
-                selectedTable = null;
-                orderItems = [];
-                totalAmount = 0;
-                tableButtons.forEach(btn => btn.classList.remove('selected-table'));
-                tableNumberDisplay.textContent = '';
-                billItemsList.innerHTML = '';
-                totalAmountDisplay.textContent = '';
-                billSection.classList.remove('visible');
-                paymentStatus.textContent = ''; // Clear payment status message
-            });
+                input.style.height = '20px';
+                input.value = '';
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
         });
+      
+input.addEventListener('click', adjustTextareaHeight);
+
+
+    input.addEventListener('input', adjustTextareaHeight);
+
+function adjustTextareaHeight() {
+ const text=document.getElementById('inputtext');
+  const inputfield = document.querySelector('.input-container');
+    inputfield.style.top='-13px';    
+    text.style.height = 'auto';
+    text.style.height = input.scrollHeight + 'px';    
+     
+}
+
     </script>
 </body>
-    </html>
+</html>
